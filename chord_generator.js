@@ -7,9 +7,9 @@ const getFormula = (MODE) => {
     const note2 = NOTES.indexOf(MODE[i + 1]);
     const note1 = NOTES.indexOf(MODE[i]);
 
-    const isEven = (note2 - note1) % 2 === 0 ? true : false;
+    const distanceBetweenNotesIsEven = (note2 - note1) % 2 === 0 ? true : false;
 
-    if (isEven) formula.push("w");
+    if (distanceBetweenNotesIsEven) formula.push("w");
     else formula.push("h");
   }
 
@@ -29,8 +29,42 @@ const MODES = {
 MODES.MAJOR = MODES.IONIAN;
 MODES.MINOR = MODES.AEOLIAN;
 
-// console.log(MODES);
 const MODAL_CHORDNAME = ["", "m", "m", "", "", "m", "dim"];
+
+var inpMode;
+var inpKey;
+const button = document.querySelector("button");
+
+let generatedScale;
+let generatedChords;
+
+let result = document.getElementById("result");
+
+
+function onInit(){
+  inpMode = document.getElementById("modes");
+  inpKey =  document.getElementById("keys");
+  NOTES.forEach(note => inpKey.innerHTML += `<option value="${note}">${note}</option>`)
+
+  const modes = Object.keys(MODES).filter((_,index) => index < 7)
+  modes.forEach((mode,index) => {
+
+      if(index === 0)
+      return inpMode.innerHTML += `<option value="${mode}">${mode}(MAJOR)</option>`
+
+      if(index === 5)
+      return inpMode.innerHTML += `<option value="${mode}">${mode}(MINOR)</option>`
+
+      return inpMode.innerHTML += `<option value="${mode}">${mode}</option>`
+    })
+
+}
+
+
+
+
+
+// console.log(MODES);
 
 const getScale = ({ mode, key }) => {
   const STEPS = {
@@ -65,21 +99,16 @@ const getChords = ({ scale }) => {
   return chords;
 };
 
-var inpMode = document.getElementById("modes").value;
-var inpKey = document.getElementById("keys").value;
-const button = document.querySelector("button");
+button?.addEventListener('click', () => {
+  inpMode = document.getElementById("modes").value;
+  inpKey = document.getElementById("keys").value;
 
-button?.addEventListener('click' , () => {
-   inpMode = document.getElementById("modes").value;
-   inpKey = document.getElementById("keys").value;
+  if (["select key"].includes(inpKey) || ["select scale or mode"].includes(inpMode))
+    return
 
-   init()
+  generate()
 })
 
-let generatedScale;
-let generatedChords;
-
-let result = document.getElementById("result");
 
 const getChordNames = () => {
   const startIndex = Object.keys(MODES).indexOf(inpMode);
@@ -95,9 +124,9 @@ const getChordNames = () => {
   }
 };
 
-function init() {
-  result.innerHTML=""
-  
+function generate() {
+  result.innerHTML = ""
+
   generatedScale = getScale({
     mode: inpMode.toUpperCase(),
     key: inpKey.toLowerCase(),
@@ -115,3 +144,6 @@ function init() {
     " are: </div></br>";
   getChordNames();
 }
+
+
+onInit()

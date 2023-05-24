@@ -4,45 +4,38 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <title>Chord Generator</title>
 
     
 </head>
 <body>
 
-    <h2>Chord Generator</h2>
 
+      <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Chord Generator</a>
+
+      </nav>
     
-    <select name="keys" id="keys">
-        <option disabled selected>select key</option>
-        <option value="c">c</option>
-        <option value="c#">c#</option>
-        <option value="d">d</option>
-        <option value="d#">d#</option>
-        <option value="e">e</option>
-        <option value="f">f</option>
-        <option value="f#">f#</option>
-        <option value="g">g</option>
-        <option value="g#">g#</option>
-        <option value="a">a</option>
-        <option value="a#">a#</option>
-        <option value="b">b</option>
-    </select>
-
-    <select name="modes" id="modes">
-        <option disabled selected>select scale or mode</option>
-        <option value="IONIAN">IONIAN(MAJOR)</option>
-        <option value="PHRYGIAN">PHRYGIAN</option>
-        <option value="DORIAN">DORIAN</option>
-        <option value="LYDIAN">LYDIAN</option>
-        <option value="MIXOLYDIAN">MIXOLYDIAN</option>
-        <option value="AEOLIAN">AEOLIAN(MINOR)</option>
-        <option value="LOCRIAN">LOCRIAN</option>
-    </select>
+    <div
     
-    <button type="button" onclick="init()">generate</button>
+    class="d-flex align-items-center justify-content-around mt-3"
+    >
+        <select name="keys" id="keys" class="form-control form-control-sm" style="flex: 0.4;">
+            <option disabled selected>select key</option>
+        </select>
+    
+        <select name="modes" id="modes" class="form-control form-control-sm"  style="flex:0.4">
+            <option disabled selected>select scale or mode</option>
+        </select>
 
-    <pre id="result"></pre>
+        <button type="button" class="btn btn-outline-success">generate</button>
+    </div>
+    
+    
+
+    <pre id="result" class="p-5"></pre>
 
     <script src="./chord_generator.js" ></script>
 </body>
